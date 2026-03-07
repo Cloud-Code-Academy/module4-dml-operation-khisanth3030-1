@@ -17,7 +17,7 @@
  * The methods within this class serve as practical examples of different DML operations,
  * allowing developers to learn through practice and examples.
  *
- * @author Your Name
+ * @author Amy Ho
  */
 
 
@@ -31,13 +31,13 @@ public with sharing class DMLOperations {
      */
     public static Id insertNewAccount() {
         // Create a new Account instance
-
+        Account newAccount = new Account();
         // Set some fields on the Account
-
+        newAccount.Name = 'Test Account';        
         // Insert the Account into the database
-
+        insert newAccount;
         // Return the Id of the newly created Account
-        return null;
+        return newAccount.Id;
     }
 
     /**
@@ -48,8 +48,9 @@ public with sharing class DMLOperations {
      */
     public static void createAccount(String name, String industry) {
         // Create a new Account and set the fields inline
-
+        Account acct = new Account(name=name,industry=industry);
         // Insert the Account
+        insert acct;
     }
 
     
@@ -61,14 +62,16 @@ public with sharing class DMLOperations {
      */
     public static Id insertNewContact(Id accountId) {
         // Create a new Contact instance
+        Contact con = new Contact();
 
         // Set some fields on the Contact
         // Set the AccountId field to the given accountId
-
+        con.AccountId = accountID;
+        con.LastName = 'Hikari';
         // Insert the Contact into the database
-
+        insert con;
         // Return the Id of the newly created Contact
-        return null;
+        return con.Id;
     }
 
     /**
@@ -80,11 +83,12 @@ public with sharing class DMLOperations {
      */
     public static void updateContactLastName(Id contactId, String newLastName) {
         // Retrieve the Contact from the database
-        // [SELECT Id FROM Contact WHERE Id = :contactId]
+        Contact con = [SELECT Id FROM Contact WHERE Id = :contactId];
 
         // Update the Contact's last name
-
+        con.LastName = newLastName;
         // Update the Contact in the database
+        update con;
     }
 
     /**
